@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Friends</string>
+    <string name="username">Nom d\'utilisateur</string>
+    <string name="password">Mot de passe</string>
+    <string name="login_btn">S\'authentifier</string>
+    <string name="you_don_t_have_an_account">You don\'t have an account ?</string>
+
+</resources>

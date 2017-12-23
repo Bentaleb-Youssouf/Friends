@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Friends</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login_btn">Log in</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="sign_up_btn">Sign up</string>
+    <string name="you_don_t_have_an_account">You don\'t have an account ?</string>
+    <string name="email">Email</string>
+    <string name="title_activity_nav">Friends</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+
+    <!-- Toolbar titles when navigation menu item is selected -->
+    <string-array name="nav_item_activity_titles">
+        <item>Home</item>
+        <item>My Profile</item>
+        <item>Friend Request</item>
+    </string-array>
+
+
+    <string name="action_settings">Settings</string>
+</resources>

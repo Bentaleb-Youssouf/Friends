@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="activity_login">16dp</dimen>
+    <dimen name="text_view_padding">14dp</dimen>
+    <dimen name="img_login_margin">40dp</dimen>
+    <dimen name="img_login_size">125dp</dimen>
+    <dimen name="login_margin">60dp</dimen>
+    <dimen name="tv_size">18dp</dimen>
+    <dimen name="friend_margin">5dp</dimen>
+    <dimen name="FAB_margin">15dp</dimen>
+    <dimen name="margin_5dp">5dp</dimen>
+    <dimen name="radius_btn">30dp</dimen>
+    <dimen name="pad_btn">10dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+    <dimen name="nav_header_height">176dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+</resources>

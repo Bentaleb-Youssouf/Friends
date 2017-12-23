@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+android:padding="@dimen/margin_5dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+
+
+    <LinearLayout
+        android:id="@+id/leftMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:background="@drawable/bubble_left_pink"
+            android:id="@+id/messageLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/friend_message"
+            android:text="hello djamel" />
+
+        <TextView
+            android:id="@+id/timeLeft"
+            android:layout_below="@id/messageRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="A l'instant" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/rightMsg"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/messageRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/friend_message"
+            android:background="@drawable/bubble_right_blue"
+            android:text="hello djamel" />
+
+        <TextView
+            android:id="@+id/timeRight"
+            android:layout_gravity="right"
+            android:layout_below="@id/messageLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="A l'instant"
+/>
+    </LinearLayout>
+
+
+</RelativeLayout>

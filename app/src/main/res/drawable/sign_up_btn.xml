@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_pressed="true">
+        <shape>
+
+            <padding android:bottom="@dimen/pad_btn" android:left="@dimen/pad_btn" android:right="@dimen/pad_btn" android:top="@dimen/pad_btn" />
+            <stroke android:width="2dp" android:color="@color/colorPrimary"></stroke>
+            <solid android:color="@color/white"></solid>
+
+        </shape>
+
+    </item>
+    <item>
+        <shape>
+            <padding android:bottom="@dimen/pad_btn" android:left="@dimen/pad_btn" android:right="@dimen/pad_btn" android:top="@dimen/pad_btn" />
+            <stroke android:width="2dp" android:color="@color/colorPrimary"></stroke>
+            <solid android:color="@color/white"></solid>
+        </shape>
+    </item>
+</selector>
