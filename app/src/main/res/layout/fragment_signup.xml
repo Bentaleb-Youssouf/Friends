@@ -21,6 +21,8 @@
         android:layout_height="wrap_content">
 
         <EditText
+            android:inputType="text"
+
             android:id="@+id/firstNameET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -39,6 +41,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/last_name"
+            android:inputType="text"
+
             android:maxLines="1" />
     </android.support.design.widget.TextInputLayout>
 
@@ -75,6 +79,7 @@
         android:layout_height="wrap_content">
 
         <EditText
+            android:inputType="text"
             android:id="@+id/emailET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

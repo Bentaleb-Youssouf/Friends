@@ -5,11 +5,13 @@ package ti.dam.bentaleb.benali.friends.Database;
  */
 
 public class Friend {
-    public int friend_id, user_id, confirmed;
+    public int friendID, senderID, confirmed;
 
-    public Friend(int friend_id, int user_id, int confirmed) {
-        this.friend_id = friend_id;
-        this.user_id = user_id;
+
+    public Friend(int friendID, int senderID, int confirmed) {
+        this.friendID = friendID;
+        this.senderID = senderID;
+
         this.confirmed = confirmed;
     }
 }

@@ -22,12 +22,20 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <FrameLayout
-        android:padding="@dimen/activity_login"
-        android:layout_below="@id/appBarLayout"
-        android:id="@+id/fragment_container"
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></FrameLayout>
+        android:layout_height="match_parent"
+        android:layout_below="@id/appBarLayout"
+        android:layout_gravity="center">
 
+        <FrameLayout
+            android:layout_gravity="center"
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/appBarLayout"
+            android:padding="@dimen/activity_login"></FrameLayout>
+    </ScrollView>
 
 </RelativeLayout>

@@ -21,10 +21,7 @@
         <activity
             android:name=".FriendActivity"
             android:label="@string/title_activity_nav"
-            android:theme="@style/AppTheme">
-
-        </activity>
-        <activity android:name=".FriendRequestActivity"></activity>
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

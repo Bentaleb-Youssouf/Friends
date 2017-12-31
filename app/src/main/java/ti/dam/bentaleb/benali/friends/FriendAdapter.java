@@ -47,22 +47,7 @@ public class FriendAdapter extends ArrayAdapter<FriendItem> {
         lastMsgTime.setText(friends.get(position).lastMsgTime);
         profileImg.setImageResource(friends.get(position).friendImg);
 
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getContext(),profileName.getText()+" "+position,Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(activity,ChatActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("FRIEND_NAME" ,profileName.getText().toString());
-                bundle.putInt("FRIEND_ID",friends.get(position).friendID);
-                intent.putExtras(bundle);
-                //intent.putExtra("FRIEND_NAME" ,profileName.getText().toString());
-                //intent.putExtra("FRIEND_ID",friends.get(position).friendID);
-
-                activity.startActivity(intent);
-            }
-        });
         return view;
     }
 }

@@ -89,7 +89,7 @@ public class ChatActivity extends AppCompatActivity {
         String date = df.format(Calendar.getInstance().getTime());
         Toast.makeText(getBaseContext(), "Sent at = " + date, Toast.LENGTH_SHORT).show();
 
-        Message message = new Message(helper.getMsgCount(), messageED.getText().toString(), date, userID);
+        Message message = new Message(0, messageED.getText().toString(), date, userID, friendID);
         helper.createMessage(message);
         //messageList.clear();
         //messageList = helper.getAllMessage(userID,friendID);

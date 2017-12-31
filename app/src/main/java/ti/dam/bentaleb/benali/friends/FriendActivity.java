@@ -1,5 +1,6 @@
 package ti.dam.bentaleb.benali.friends;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import ti.dam.bentaleb.benali.friends.Database.MyHelper;
 import ti.dam.bentaleb.benali.friends.Database.User;
+import ti.dam.bentaleb.benali.friends.Login.LoginActivity;
 
 public class FriendActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -67,7 +69,7 @@ public class FriendActivity extends AppCompatActivity
         SharedPreferences preferences;
         preferences = getSharedPreferences("FRIEND_APP", 0);
         userID = preferences.getInt("USER_ID", -1);
-        currentUser = myHelper.getUserData(String.valueOf(userID));
+        currentUser = myHelper.getUserData(userID);
 
         //Those lines refresh the nav drawer detail from the current user logged in
         loadNavHeader();
@@ -153,9 +155,6 @@ public class FriendActivity extends AppCompatActivity
         profileImg.setImageResource(currentUser.profile_img);
     }
 
-
-
-
     private void setUpNavigationView() {
         //Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
         navigationView.setNavigationItemSelectedListener(this);
@@ -182,10 +181,6 @@ public class FriendActivity extends AppCompatActivity
         //calling sync state is necessary or else your hamburger icon wont show up
         actionBarDrawerToggle.syncState();
     }
-
-
-
-
 
 
     @Override
@@ -236,7 +231,8 @@ public class FriendActivity extends AppCompatActivity
             case R.id.about:
                 // launch new intent instead of loading fragment
                 //TODO : create the about activity and pass it here!
-                //startActivity(new Intent(MainActivity.this, AboutUsActivity.class));
+                AboutDialog aboutDialog = new AboutDialog(this);
+                aboutDialog.show();
                 Toast.makeText(getApplicationContext(),"About activity !",Toast.LENGTH_SHORT).show();
 
                 drawer.closeDrawers();
@@ -244,8 +240,14 @@ public class FriendActivity extends AppCompatActivity
             case R.id.logout:
                 Toast.makeText(getApplicationContext(),"Logout !",Toast.LENGTH_SHORT).show();
 
+                SharedPreferences sharedPreferences = getSharedPreferences("FRIEND_APP", 0);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.clear();
+                editor.apply();
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
+                this.finish();
                 // launch new intent instead of loading fragment
-                //TODO : handel the lougout option here !
                 //startActivity(new Intent(MainActivity.this, PrivacyPolicyActivity.class));
                 drawer.closeDrawers();
                 return true;

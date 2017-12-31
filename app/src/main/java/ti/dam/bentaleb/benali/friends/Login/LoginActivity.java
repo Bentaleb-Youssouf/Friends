@@ -22,9 +22,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onBackPressed();
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
-        //LinearLayout signUpLinearLayout = (LinearLayout) findViewById(R.id.linearLayoutSignUp);
-        //signUpLinearLayout.setVisibility(View.VISIBLE);
-
     }
 
     @Override
@@ -63,13 +60,6 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-
-
-        /*fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.fragment_container, loginFragment);
-        fragmentTransaction.commit();*/
-
     }
 
     @Override
@@ -93,17 +83,7 @@ public class LoginActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        //LinearLayout signUpLinearLayout = (LinearLayout) findViewById(R.id.linearLayoutSignUp);
-        //signUpLinearLayout.setVisibility(View.GONE);
 
-        /*fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentManager.popBackStackImmediate(0, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-
-
-        fragmentTransaction.replace(R.id.fragment_container,signUpFragment);
-        //fragmentTransaction.commit();**
-        */
     }
 
     @Override
@@ -111,32 +91,4 @@ public class LoginActivity extends AppCompatActivity {
         onBackPressed();
         return true;
     }
-
-
-
-
-   /* public void loginCheck(View view){
-        String userText = userEd.getText().toString(),
-               passText = passEd.getText().toString();
-
-        if(userText.equals("") || passText.equals("")){
-            Toast.makeText(this,"Insérer des valeurs S.V.P !" , Toast.LENGTH_SHORT).show();
-            Log.e("LoginActivity","Les champs vide !");
-        }else{
-            if(userText.equals(USERNAME) && passText.equals(PASSWORD)){
-                Intent intent = new Intent(this, FriendActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("USERNAME",USERNAME);
-                bundle.putString("PASSWORD",PASSWORD);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }else{
-                Toast.makeText(this,"Les informations sont incorrect !" , Toast.LENGTH_SHORT).show();
-                Log.e("LoginActivity","Les informations sont incorrect !");
-            }
-
-        }
-
-    }
-    */
 }

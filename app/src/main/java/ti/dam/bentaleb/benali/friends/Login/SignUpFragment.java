@@ -71,6 +71,7 @@ public class SignUpFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         MyHelper myHelper = new MyHelper(getContext());
         User user = new User(
+                0,
                 usernameEd.getText().toString(),
                 passwordEd.getText().toString(),
                 firstNameEd.getText().toString(),
@@ -79,7 +80,7 @@ public class SignUpFragment extends Fragment implements View.OnClickListener {
                 randomProfileImg()
         );
 
-        boolean res = myHelper.checkUserData(usernameEd.getText().toString(), passwordEd.getText().toString());
+        boolean res = myHelper.checkUserExist(usernameEd.getText().toString());
         if (res == false) {
             myHelper.addUser(user);
             int userID = myHelper.getUserID(usernameEd.getText().toString());

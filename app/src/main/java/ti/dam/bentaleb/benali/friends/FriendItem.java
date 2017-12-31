@@ -5,8 +5,8 @@ package ti.dam.bentaleb.benali.friends;
  */
 
 public class FriendItem {
-    int friendImg,friendID;
-    String friendName , lastMsg , lastMsgTime;
+    public int friendImg, friendID;
+    public String friendName, lastMsg, lastMsgTime;
 
     public FriendItem(int friendID,int friendImg,String friendName,String lastMsg,String lastMsgTime){
         this.friendID=friendID;

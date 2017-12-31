@@ -11,14 +11,15 @@ public class Message {
     public String content;
     public String date;
     public int senderID;
+    public int receiverID;
 
 
-    public Message(int id, String content, String date , int senderID ) {
+    public Message(int id, String content, String date, int senderID, int receiverID) {
         this.id = id;
         this.content = content;
         this.date = date;
         this.senderID = senderID;
-
+        this.receiverID = receiverID;
     }
 
 

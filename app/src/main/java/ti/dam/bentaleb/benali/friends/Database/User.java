@@ -5,10 +5,11 @@ package ti.dam.bentaleb.benali.friends.Database;
  */
 
 public class User {
-    public String username,password,firstName,lastName,email;
-    public int profile_img;
+    public String username, password, firstName, lastName, email;
+    public int profile_img, userID;
 
-    public User(  String username, String password, String firstName, String lastName, String email, int profile_img ) {
+    public User(int userID, String username, String password, String firstName, String lastName, String email, int profile_img) {
+        this.userID = userID;
         this.username = username;
         this.password = password;
         this.firstName = firstName;
