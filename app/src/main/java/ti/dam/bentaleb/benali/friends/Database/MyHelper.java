@@ -562,7 +562,6 @@ public class MyHelper extends SQLiteOpenHelper {
             }
         }
 
-
         //this is for delete the current user from the all users list
         for (int i = 0; i < allUsers.size(); i++) {
             if (allUsers.get(i).userID == userID)
