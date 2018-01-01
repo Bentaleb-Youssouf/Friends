@@ -136,54 +136,57 @@ public class MyHelper extends SQLiteOpenHelper {
         ArrayList<FriendItem> friends = new ArrayList<>();
 
         //this query select all friends that they are already friends with the current user
-        String selectAllFriends = "SELECT id_friend , sender_id FROM " + friend_table + " WHERE sender_id = ? or id_friend = ? AND confirmed = 1";
-        Cursor friendsCursor = db.rawQuery(selectAllFriends, new String[]{userID, userID});
+        String selectAllFriends = "SELECT id_friend , sender_id FROM " + friend_table + " WHERE sender_id = " + userID + " AND confirmed=1 OR id_friend = " + userID + " AND confirmed=1";
+        Cursor friendsCursor = db.rawQuery(selectAllFriends, null);
         friendsCursor.moveToFirst();
-        while (friendsCursor.isAfterLast() == false) {
-            int friendID = friendsCursor.getInt(friendsCursor.getColumnIndex("id_friend"));
+        if (friendsCursor != null) {
 
-            //this check verify if the currentUser isn't the sender of the request but he accept the request before
-            //so he is friend_id = currentUser and confirmed = 1
-            //so we don't need his info but we need the sender information
-            if (Integer.valueOf(userID) == friendID)
-                friendID = friendsCursor.getInt(friendsCursor.getColumnIndex("sender_id"));
+            while (friendsCursor.isAfterLast() == false) {
+                int friendID = friendsCursor.getInt(friendsCursor.getColumnIndex("id_friend"));
 
-            String selectFriendDetail = "SELECT * FROM " + users_table + " WHERE id_user = ?";
-            Cursor usersCursor = db.rawQuery(selectFriendDetail, new String[]{String.valueOf(friendID)});
-            usersCursor.moveToFirst();
-            while (usersCursor.isAfterLast() == false) {
-                String selectMsgQuery = "SELECT * FROM " + msg_table +
-                        " WHERE sender_id = " + userID + " AND  receiver_id = " + friendID +
-                        " OR sender_id=" + friendID + " AND receiver_id= " + userID + " ORDER BY date DESC Limit 1";
-                Cursor msgCursor = db.rawQuery(selectMsgQuery, null);
-                msgCursor.moveToFirst();
-                DateFormat df = new SimpleDateFormat("yyyy-MM-dd, HH:mm");
-                String timeNow = df.format(Calendar.getInstance().getTime());
-                if (msgCursor.isFirst()) {
-                    friends.add(new FriendItem(
-                            friendID,
-                            usersCursor.getInt(usersCursor.getColumnIndex("profile_img")),
-                            usersCursor.getString(usersCursor.getColumnIndex("first_name")) + " " +
-                                    usersCursor.getString(usersCursor.getColumnIndex("last_name")),
-                            msgCursor.getString(msgCursor.getColumnIndex("content")),
-                            ChatActivity.diffDates(msgCursor.getString(msgCursor.getColumnIndex("date")), timeNow)
-                    ));
-                } else {
-                    //this case is when you add a friend for the first time & u don't have any messages with him
-                    friends.add(new FriendItem(
-                            friendID,
-                            usersCursor.getInt(usersCursor.getColumnIndex("profile_img")),
-                            usersCursor.getString(usersCursor.getColumnIndex("first_name")) +
-                                    usersCursor.getString(usersCursor.getColumnIndex("last_name")),
-                            "Tap here to start conversation",
-                            " -- "
-                    ));
+                //this check verify if the currentUser isn't the sender of the request but he accept the request before
+                //so he is friend_id = currentUser and confirmed = 1
+                //so we don't need his info but we need the sender information
+                if (Integer.valueOf(userID) == friendID)
+                    friendID = friendsCursor.getInt(friendsCursor.getColumnIndex("sender_id"));
+
+                String selectFriendDetail = "SELECT * FROM " + users_table + " WHERE id_user = ?";
+                Cursor usersCursor = db.rawQuery(selectFriendDetail, new String[]{String.valueOf(friendID)});
+                usersCursor.moveToFirst();
+                while (usersCursor.isAfterLast() == false) {
+                    String selectMsgQuery = "SELECT * FROM " + msg_table +
+                            " WHERE sender_id = " + userID + " AND  receiver_id = " + friendID +
+                            " OR sender_id=" + friendID + " AND receiver_id= " + userID + " ORDER BY date DESC Limit 1";
+                    Cursor msgCursor = db.rawQuery(selectMsgQuery, null);
+                    msgCursor.moveToFirst();
+                    DateFormat df = new SimpleDateFormat("yyyy-MM-dd, HH:mm");
+                    String timeNow = df.format(Calendar.getInstance().getTime());
+                    if (msgCursor.isFirst()) {
+                        friends.add(new FriendItem(
+                                friendID,
+                                usersCursor.getInt(usersCursor.getColumnIndex("profile_img")),
+                                usersCursor.getString(usersCursor.getColumnIndex("first_name")) + " " +
+                                        usersCursor.getString(usersCursor.getColumnIndex("last_name")),
+                                msgCursor.getString(msgCursor.getColumnIndex("content")),
+                                ChatActivity.diffDates(msgCursor.getString(msgCursor.getColumnIndex("date")), timeNow)
+                        ));
+                    } else {
+                        //this case is when you add a friend for the first time & u don't have any messages with him
+                        friends.add(new FriendItem(
+                                friendID,
+                                usersCursor.getInt(usersCursor.getColumnIndex("profile_img")),
+                                usersCursor.getString(usersCursor.getColumnIndex("first_name")) + " " +
+                                        usersCursor.getString(usersCursor.getColumnIndex("last_name")),
+                                "Tap here to start conversation",
+                                " -- "
+                        ));
+                    }
+                    msgCursor.close();
+                    usersCursor.moveToNext();
                 }
-                msgCursor.close();
-                usersCursor.moveToNext();
+                usersCursor.close();
+                friendsCursor.moveToNext();
             }
-            usersCursor.close();
-            friendsCursor.moveToNext();
         }
         friendsCursor.close();
 
@@ -437,13 +440,13 @@ public class MyHelper extends SQLiteOpenHelper {
 
         for (int i = 0; i < myFriends.size(); i++) {
             int friendID = myFriends.get(i).friendID;
-            String selectQuery = "SELECT id_user, first_name, last_name,email,profile_img FROM " + users_table
+            String selectQuery = "SELECT id_user, username, first_name, last_name, email, profile_img FROM " + users_table
                     + " WHERE id_user = " + friendID;
             Cursor cursor = db.rawQuery(selectQuery, null);
             cursor.moveToFirst();
             friendRequests.add(new User(
                     friendID,
-                    "", "",
+                    cursor.getString(cursor.getColumnIndex("username")), "",
                     cursor.getString(cursor.getColumnIndex("first_name")),
                     cursor.getString(cursor.getColumnIndex("last_name")),
                     cursor.getString(cursor.getColumnIndex("email")),
@@ -457,8 +460,8 @@ public class MyHelper extends SQLiteOpenHelper {
     public boolean checkRequestExist(int userID, int friendID) {
         SQLiteDatabase db = getReadableDatabase();
         String checkQuery = "SELECT * FROM " + friend_table + " WHERE sender_id =" + userID + " AND id_friend =" + friendID
-                + " OR sender_id= " + friendID + " AND id_friend=" + userID + " AND confirmed=0";
-        Toast.makeText(context, checkQuery, Toast.LENGTH_LONG).show();
+                + " OR sender_id= " + friendID + " AND id_friend=" + userID + " AND confirmed = 0";
+        //Toast.makeText(context, checkQuery, Toast.LENGTH_LONG).show();
 
         Cursor cursor = db.rawQuery(checkQuery, null);
         cursor.moveToFirst();
@@ -511,7 +514,7 @@ public class MyHelper extends SQLiteOpenHelper {
         ArrayList<User> myFriends = myFriends(userID);
         ArrayList<User> allUsers = new ArrayList<>();
 
-        String selectAllUsers = "SELECT  id_user, profile_img, first_name, last_name,email FROM " + users_table;
+        String selectAllUsers = "SELECT  id_user,username, profile_img, first_name, last_name,email FROM " + users_table;
         Cursor cursor = db.rawQuery(selectAllUsers, null);
         cursor.moveToFirst();
 
@@ -520,7 +523,7 @@ public class MyHelper extends SQLiteOpenHelper {
 
                 allUsers.add(new User(
                         cursor.getInt(cursor.getColumnIndex("id_user")),
-                        "", "",
+                        cursor.getString(cursor.getColumnIndex("username")), "",
                         cursor.getString(cursor.getColumnIndex("first_name")),
                         cursor.getString(cursor.getColumnIndex("last_name")),
                         cursor.getString(cursor.getColumnIndex("email")),
@@ -531,56 +534,41 @@ public class MyHelper extends SQLiteOpenHelper {
         }
         cursor.close();
 
-        Toast.makeText(context, "All users size = " + allUsers.size(), Toast.LENGTH_SHORT).show();
-        Toast.makeText(context, "ConfirmedRequests size = " + myFriends.size(), Toast.LENGTH_SHORT).show();
 
-
-        //this case when i send a request to another friend so he can't send me a request after
-        for (int i = 0; i < allUsers.size(); i++) {
-            for (int j = 0; j < myFriends.size(); j++) {
+        //this to delete the current user's friends from the all users list
+        boolean loop = true;
+        while (loop == true) {
+            loop = false;
+            for (int i = 0; i < allUsers.size(); i++) {
+                for (int j = 0; j < myFriends.size(); j++) {
 //                Toast.makeText(context, "FRIEND = " + allUsers.get(i).userID + " USER ID = " + userID, Toast.LENGTH_SHORT).show();
-                if (checkRequestExist(allUsers.get(i).userID, userID) || allUsers.get(i).userID == myFriends.get(j).userID) {
+                    if (allUsers.get(i).userID == myFriends.get(j).userID) {
+                        allUsers.remove(i);
+                        loop = true;
+                    }
+                }
+            }
+        }
+
+        //this is to delete the users that they're send already a request before
+        boolean ok = true;
+        while (ok == true) {
+            ok = false;
+            for (int i = 0; i < allUsers.size(); i++) {
+                if (checkRequestExist(allUsers.get(i).userID, userID)) {
+                    ok = true;
                     allUsers.remove(i);
                 }
             }
         }
 
 
-        /*
-        //delete all friends from allUsers array
+        //this is for delete the current user from the all users list
         for (int i = 0; i < allUsers.size(); i++) {
-            for (int j = 0; j < myFriends.size() - 1; j++) {
-                if (allUsers.get(i).userID == myFriends.get(j).userID)
-                    allUsers.remove(i);
-
-            }
+            if (allUsers.get(i).userID == userID)
+                allUsers.remove(i);
         }
-        */
 
-        //allUsers.removeAll(confirmedRequests);
-
-        User currentUserData;
-        String selectQuery = "SELECT  first_name, last_name, email, profile_img FROM "
-                + users_table + " WHERE id_user = " + userID;
-        Cursor currentUserCursor = db.rawQuery(selectQuery, null);
-        currentUserCursor.moveToFirst();
-
-        if (currentUserCursor != null) {
-            currentUserData = new User(
-                    userID,
-                    "", "",
-                    currentUserCursor.getString(currentUserCursor.getColumnIndex("first_name")),
-                    currentUserCursor.getString(currentUserCursor.getColumnIndex("last_name")),
-                    currentUserCursor.getString(currentUserCursor.getColumnIndex("email")),
-                    currentUserCursor.getInt(currentUserCursor.getColumnIndex("profile_img"))
-            );
-            Toast.makeText(context, "Current user : " + currentUserData.firstName + currentUserData.lastName, Toast.LENGTH_SHORT).show();
-
-            for (int i = 0; i < allUsers.size(); i++) {
-                if (allUsers.get(i).userID == userID)
-                    allUsers.remove(i);
-            }
-        }
 
         //currentUserCursor.close();
         //closeDB();
